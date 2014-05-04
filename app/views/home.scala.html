@@ -1,14 +1,41 @@
-@(message: String)
-
 <!DOCTYPE html>
+<head>
+  <!-- Basic Page Needs
+  ================================================== -->
+  <meta charset="utf-8">
+  <title>longcao.org</title>
 
-<html>
-    <head>
-        <title>@message</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-        <script src="@routes.Assets.at("javascripts/jquery-2.1.0.min.js")" type="text/javascript"></script>
-    </head>
-    <body>
-        @message
-    </body>
+  <!-- Mobile Specific Metas
+  ================================================== -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- CSS
+  ================================================== -->
+  <link rel="stylesheet" href="@routes.Assets.at("stylesheets/base.css")">
+  <link rel="stylesheet" href="@routes.Assets.at("stylesheets/skeleton.css")">
+  <link rel="stylesheet" href="@routes.Assets.at("stylesheets/layout.css")">
+</head>
+<body>
+  <div class="container">
+    <div class="sixteen columns">
+      <h1 class="remove-bottom" style="margin-top: 40px">zen garden</h1>
+      <br>
+    </div>
+    <div class="sixteen columns offset-by-one">
+      <p>this</p>
+    </div>
+    <div class="sixteen columns offset-by-three">
+      <p>is</p>
+    </div>
+    <div class="sixteen columns offset-by-two">
+      <p>how</p>
+    </div>
+    <div class="sixteen columns offset-by-three">
+      <p>it</p>
+    </div>
+    <div class="sixteen columns offset-by-one">
+      <p>begins</p>
+    </div>
+  </div>
+</body>
 </html>

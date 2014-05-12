@@ -1,46 +1,9 @@
 <!DOCTYPE html>
-<head>
-  <!-- Basic Page Needs
-  ================================================== -->
-  <meta charset="utf-8">
-  <title>longcao.org - HOW DO I INTERNET</title>
-
-  <!-- Mobile Specific Metas
-  ================================================== -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-  <!-- CSS
-  ================================================== -->
-  <link rel="stylesheet" href="@routes.Assets.at("stylesheets/base.css")">
-  <link rel="stylesheet" href="@routes.Assets.at("stylesheets/skeleton.css")">
-  <link rel="stylesheet" href="@routes.Assets.at("stylesheets/layout.css")">
-</head>
-<body>
-  <div class="container">
-    <div class="three columns sidebar">
-      <nav>
-        <h3>
-          <a href="/" id="logo">long cao</a>
-        </h3>
-        <ul>
-          <li><a href="#">blog</a></li>
-          <li><a href="#">about</a></li>
-        </ul>
-      </nav>
-      &nbsp;
+  @head()
+  <body>
+    <div class="container">
+      @sidebar()
+      @content()
     </div>
-    <div class="twelve columns offset-by-one">
-      <header>
-        <h2>This is a title.</h2>
-      </header>
-      <p>Scenester chambray fap Blue Bottle seitan. Beard blog whatever Pinterest Austin Bushwick. Odd Future bicycle rights McSweeney's Godard. Hashtag cardigan church-key bicycle rights chambray. VHS selvage +1, fashion axe gluten-free tofu Neutra PBR&B. Pork belly biodiesel letterpress food truck Bushwick slow-carb. Readymade stumptown farm-to-table, mumblecore skateboard four loko ugh Pitchfork kogi fap synth iPhone scenester before they sold out.</p>
-      <p>Cliche Banksy master cleanse, ethical Neutra post-ironic chambray Marfa biodiesel you probably haven't heard of them irony McSweeney's gastropub farm-to-table craft beer. Portland Odd Future blog, food truck selvage shabby chic Kickstarter Pinterest Blue Bottle kogi disrupt readymade. Bitters beard keffiyeh mixtape, squid iPhone dreamcatcher lo-fi chillwave American Apparel. Tattooed fanny pack Portland DIY scenester. Direct trade 8-bit mustache Pitchfork, pickled iPhone gluten-free YOLO readymade raw denim 90's brunch tattooed sustainable. Chia mixtape Shoreditch, fixie roof party aesthetic literally 8-bit next level Pinterest freegan crucifix quinoa. Leggings Williamsburg Pinterest, art party banjo fanny pack meggings Vice +1 quinoa.</p>
-    <img class="scale-with-grid" src="@routes.Assets.at("images/yeezy.jpg")"/>
-    <p>Semiotics bicycle rights Odd Future, tote bag bitters readymade flexitarian trust fund drinking vinegar salvia blog. Disrupt four loko blog, Echo Park photo booth keytar sartorial fap Portland flexitarian meggings tote bag Marfa Tumblr paleo. You probably haven't heard of them fixie banh mi, before they sold out lomo tote bag fashion axe Thundercats Tonx gentrify vegan. Umami wolf cray, mixtape shabby chic fixie pour-over pork belly try-hard Shoreditch.</p>
-    <p>Ugh small batch sartorial direct trade. Mustache Truffaut Kickstarter, selfies semiotics Thundercats mumblecore sartorial forage master cleanse gluten-free Pinterest freegan Pitchfork sustainable. Plaid organic keffiyeh, slow-carb beard butcher tousled fingerstache locavore.</p>
-    <p>Retro next level meh, umami ethical twee roof party synth. Umami flannel sustainable readymade, cornhole tousled American Apparel brunch pork belly Godard raw denim bitters. Mixtape yr photo booth aesthetic Neutra, actually Tonx Portland Vice small batch Marfa Shoreditch post-ironic. Vice small batch swag, sartorial Brooklyn lomo try-hard forage banjo put a bird on it before they sold out pork belly. Vice Austin hella, Blue Bottle food truck gentrify authentic freegan slow-carb. Readymade Wes Anderson wayfarers Godard. +1 meh cornhole cray roof party.</p>
-      </p>
-    </div>
-  </div>
-</body>
+  </body>
 </html>

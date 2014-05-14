@@ -2,11 +2,13 @@ package controllers
 
 import play.api._
 import play.api.mvc._
+import play.api.templates.Html
 
 object Application extends Controller {
 
   def home = Action {
-    Ok(views.html.master())
+    val content: Html = views.html.content()
+    Ok(views.html.master(content))
   }
 
 }

@@ -4,7 +4,9 @@ import play.api._
 import play.api.mvc._
 import play.api.templates.Html
 
-object Application extends Controller {
+import securesocial.core.SecureSocial
+
+object Application extends Controller with SecureSocial {
 
   def home = Action {
     val content: Html = views.html.content()
@@ -16,7 +18,7 @@ object Application extends Controller {
     Ok(views.html.master(content))
   }
 
-  def about = Action {
+  def about = SecuredAction {
     val content: Html = views.html.about()
     Ok(views.html.master(content))
   }

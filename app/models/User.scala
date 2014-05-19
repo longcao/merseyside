@@ -96,16 +96,18 @@ object UserRepository extends CustomColumnTypes {
       if u.userId === id.userId
       if u.providerId === id.providerId
     } yield (u)
-    q.list.headOption
+    q.firstOption
   }
 
-  def findByEmailAndProvider(email: String, providerId: String): Option[User] = Database.forDataSource(ds) withSession { implicit session =>
-    val q = for {
-      u <- users
-      if u.email === Option(email)
-      if u.providerId === providerId
-    } yield (u)
-    q.list.headOption
+  def findByEmailAndProvider(email: String, providerId: String): Option[User] = {
+    Database.forDataSource(ds) withSession { implicit session =>
+      val q = for {
+        u <- users
+        if u.email === Option(email)
+        if u.providerId === providerId
+      } yield (u)
+      q.firstOption
+    }
   }
 
   def save(user: Identity): User = save(User.fromIdentity(user))

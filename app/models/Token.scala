@@ -2,18 +2,13 @@ package models
 
 import com.github.tototoshi.slick.MySQLJodaSupport._
 
-import javax.sql.DataSource
-
 import org.joda.time.DateTime
-
-import play.api.db.DB
-import play.api.Play.current
 
 import scala.slick.driver.MySQLDriver.simple._
 
 import securesocial.core.providers.Token
 
-object TokenRepository {
+object TokenRepository extends Repository {
   class Tokens(tag: Tag) extends Table[Token](tag, "tokens") {
     def uuid = column[String]("uuid")
     def email = column[String]("email")
@@ -24,8 +19,6 @@ object TokenRepository {
     def * = (uuid, email, creationTime, expirationTime, isSignUp) <> (Token.tupled, Token.unapply)
   }
   val tokens = TableQuery[Tokens]
-
-  val ds: DataSource = DB.getDataSource()
 
   def findById(uuid: String): Option[Token] = Database.forDataSource(ds) withSession { implicit session =>
     val q = for {

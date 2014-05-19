@@ -1,22 +1,17 @@
 package models
 
-import javax.sql.DataSource
-
-import play.api.db.DB
-import play.api.Play.current
-
 import securesocial.core._
 
 import scala.slick.driver.MySQLDriver.simple._
 
-trait CustomColumnTypes {
+sealed trait CustomColumnTypes {
   implicit val authenticationMethodColumnType =
     MappedColumnType.base[AuthenticationMethod, String](
       (authenticationMethod: AuthenticationMethod) => authenticationMethod.method,
       (string: String) => AuthenticationMethod(string))
 }
 
-object UserRepository extends CustomColumnTypes {
+object UserRepository extends Repository with CustomColumnTypes {
   class Users(tag: Tag) extends Table[User](tag, "users") {
     def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
 
@@ -87,8 +82,6 @@ object UserRepository extends CustomColumnTypes {
     }
   }
   val users = TableQuery[Users]
-
-  val ds: DataSource = DB.getDataSource()
 
   def findByIdentityId(id: IdentityId): Option[User] = Database.forDataSource(ds) withSession { implicit session =>
     val q = for {

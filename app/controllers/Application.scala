@@ -21,4 +21,9 @@ object Application extends Controller {
     Ok(views.html.master(content))
   }
 
+  def editor = Action {
+    val editor: Html = views.html.editor()
+    Ok(views.html.master(editor))
+  }
+
 }

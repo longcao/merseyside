@@ -18,7 +18,7 @@ object Application extends Controller with SecureSocial {
     Ok(views.html.master(content))
   }
 
-  def about = SecuredAction {
+  def about = Action {
     val content: Html = views.html.about()
     Ok(views.html.master(content))
   }

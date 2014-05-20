@@ -1,0 +1,22 @@
+<header>
+  <h2>New post</h2>
+</header>
+
+<div id="epiceditor"></div>
+
+<script src="@routes.Assets.at("javascripts/epiceditor.min.js")"></script>
+<script>
+  var options = {
+    basePath: '',
+    theme: {
+      base: '@routes.Assets.at("stylesheets/epiceditor/base/epiceditor.css")',
+      preview: '@routes.Assets.at("stylesheets/epiceditor/preview/github.css")',
+      editor: '@routes.Assets.at("stylesheets/epiceditor/editor/epic-dark.css")'
+    },
+    autogrow: true,
+    autogrow: {
+      minHeight: 400
+    }
+  }
+  var editor = new EpicEditor(options).load();
+</script>

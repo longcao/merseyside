@@ -52,7 +52,6 @@ object TokenRepository extends Repository {
       t <- tokens
       if t.uuid is uuid
     } yield t
-
     q.delete
   }
 
@@ -61,7 +60,6 @@ object TokenRepository extends Repository {
       t <- tokens
       if t.expirationTime < currentDate
     } yield t
-
     q.delete
   }
 }

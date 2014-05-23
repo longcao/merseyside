@@ -23,7 +23,7 @@ object Application extends Controller with SecureSocial {
     Ok(views.html.master(content))
   }
 
-  def editor = Action {
+  def editor = SecuredAction {
     val editor: Html = views.html.editor()
     Ok(views.html.master(editor))
   }

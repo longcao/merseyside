@@ -13,9 +13,10 @@ object PostRepository extends Repository {
     def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
     def title = column[String]("title")
     def content = column[String]("content")
+    def published = column[Boolean]("published")
     def creationTime = column[DateTime]("creationTime")
 
-    def * = (id.?, title.?, content, creationTime.?) <> ((Post.apply _).tupled, Post.unapply)
+    def * = (id.?, title.?, content, published, creationTime.?) <> ((Post.apply _).tupled, Post.unapply)
   }
   val posts = TableQuery[Posts]
 
@@ -53,6 +54,7 @@ object Post {
         id = (json \ "id").asOpt[Long],
         title = (json \ "title").asOpt[String],
         content = (json \ "content").as[String],
+        published = (json \ "published").as[Boolean],
         creationTime = (json \ "creationTime").asOpt[DateTime]))
       case _ => JsError("Invalid JSON supplied.")
     }
@@ -61,6 +63,7 @@ object Post {
       "id" -> post.id,
       "title" -> post.title,
       "content" -> post.content,
+      "published" -> post.published,
       "creationTime" -> post.creationTime)
   }
 }
@@ -69,4 +72,5 @@ case class Post(
   id: Option[Long],
   title: Option[String],
   content: String,
+  published: Boolean,
   creationTime: Option[DateTime])

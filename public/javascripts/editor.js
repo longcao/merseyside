@@ -5,7 +5,6 @@ var options = {
     preview: '/assets/stylesheets/epiceditor/preview/github.css',
     editor: '/assets/stylesheets/epiceditor/editor/epic-dark.css'
   },
-  autogrow: true,
   autogrow: {
     minHeight: 400
   }
@@ -25,7 +24,11 @@ $('#submitPost').click(function(event) {
     type: 'POST',
     contentType: 'application/json; charset=utf-8',
     url: '/save',
-    data: JSON.stringify(data)
+    dataType: 'json',
+    data: JSON.stringify(data),
+    success: function(data) {
+      window.location.href = "/blog/" + data.id;
+    }
   });
 
 });

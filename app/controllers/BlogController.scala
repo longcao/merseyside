@@ -20,7 +20,7 @@ object BlogController extends Controller with SecureSocial {
     Ok(views.html.master(Html.empty))
   }
 
-  def save = Action(parse.json) { implicit request =>
+  def save = SecuredAction(ajaxCall = true)(parse.json) { implicit request =>
     val post: Post = request.body.as[Post]
     val savedPost: Post = PostRepository.save(post)
     Ok(Json.toJson(savedPost).toString)

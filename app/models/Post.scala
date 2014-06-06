@@ -15,8 +15,9 @@ object PostRepository extends Repository {
     def content = column[String]("content")
     def published = column[Boolean]("published")
     def creationTime = column[DateTime]("creationTime")
+    def lastUpdateTime = column[DateTime]("lastUpdateTime")
 
-    def * = (id.?, title.?, content, published, creationTime.?) <> ((Post.apply _).tupled, Post.unapply)
+    def * = (id.?, title.?, content, published, creationTime.?, lastUpdateTime.?) <> ((Post.apply _).tupled, Post.unapply)
   }
   val posts = TableQuery[Posts]
 
@@ -32,8 +33,11 @@ object PostRepository extends Repository {
   def save(post: Post): Post = Database.forDataSource(ds) withSession { implicit session =>
     findById(post.id) match {
       case None =>
-        val id = (posts returning posts.map(_.id)).insert(post)
-        post.copy(id = Option(id))
+        (posts returning posts.map(_.id)).into {
+          (post, id) =>
+            post.copy(id = Option(id))
+        }.insert(
+          post.copy(creationTime = Some(new DateTime())))
       case Some(existingPost) =>
         val q = for {
           p <- posts
@@ -55,7 +59,8 @@ object Post {
         title = (json \ "title").asOpt[String],
         content = (json \ "content").as[String],
         published = (json \ "published").as[Boolean],
-        creationTime = (json \ "creationTime").asOpt[DateTime]))
+        creationTime = (json \ "creationTime").asOpt[DateTime],
+        lastUpdateTime = (json \ "lastUpdateTime").asOpt[DateTime]))
       case _ => JsError("Invalid JSON supplied.")
     }
 
@@ -64,7 +69,8 @@ object Post {
       "title" -> post.title,
       "content" -> post.content,
       "published" -> post.published,
-      "creationTime" -> post.creationTime)
+      "creationTime" -> post.creationTime,
+      "lastUpdateTime" -> post.lastUpdateTime)
   }
 }
 
@@ -73,4 +79,5 @@ case class Post(
   title: Option[String],
   content: String,
   published: Boolean,
-  creationTime: Option[DateTime])
+  creationTime: Option[DateTime],
+  lastUpdateTime: Option[DateTime])

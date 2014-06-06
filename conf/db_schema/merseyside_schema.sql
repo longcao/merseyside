@@ -34,7 +34,7 @@ CREATE TABLE `posts` (
   `content` mediumtext NOT NULL,
   `published` tinyint(1) NOT NULL,
   `creationTime` datetime NOT NULL,
-  `lastUpdateTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `lastUpdateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;

@@ -2,7 +2,7 @@ var options = {
   basePath: '',
   theme: {
     base: '/assets/stylesheets/epiceditor/base/epiceditor.css',
-    preview: '/assets/stylesheets/epiceditor/preview/github.css',
+    preview: '/assets/stylesheets/base.css',
     editor: '/assets/stylesheets/epiceditor/editor/epic-dark.css'
   },
   autogrow: {

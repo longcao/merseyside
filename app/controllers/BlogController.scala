@@ -36,12 +36,12 @@ trait BlogController extends Controller
 }
 
 trait BlogCrud {
-  self: BlogController =>
+  self: Controller with SecureSocial =>
 
   def save = SecuredAction(ajaxCall = true)(parse.json) { implicit request =>
     val post: Post = request.body.as[Post]
     val savedPost: Post = PostRepository.save(post)
-    Ok(Json.toJson(savedPost).toString)
+    Ok(Json.toJson(savedPost))
       .withHeaders(CONTENT_TYPE -> JSON)
   }
 }

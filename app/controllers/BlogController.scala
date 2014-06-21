@@ -5,9 +5,12 @@ import models.{ Post, PostRepository }
 import play.api._
 import play.api.http.ContentTypes.JSON
 import play.api.http.HeaderNames.CONTENT_TYPE
+import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json.Json
 import play.api.mvc._
 import play.api.templates.Html
+
+import scala.concurrent.Future
 
 import securesocial.core.SecureSocial
 
@@ -37,6 +40,19 @@ trait BlogController extends Controller
 
 trait BlogCrud {
   self: Controller with SecureSocial =>
+
+  def get(id: Long) = Action.async { request =>
+    Future {
+      PostRepository.findById(Option(id)) match {
+        case Some(post: Post) =>
+          Ok(Json.toJson(post))
+            .withHeaders(CONTENT_TYPE -> JSON)
+        case _ =>
+          NotFound(Json.obj())
+            .withHeaders(CONTENT_TYPE -> JSON)
+      }
+    }
+  }
 
   def save = SecuredAction(ajaxCall = true)(parse.json) { implicit request =>
     val post: Post = request.body.as[Post]

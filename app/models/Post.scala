@@ -10,7 +10,8 @@ object Post {
       case _: JsObject => JsSuccess(Post(
         id = (json \ "id").asOpt[Long],
         title = (json \ "title").asOpt[String],
-        content = (json \ "content").as[String],
+        markdown = (json \ "markdown").as[String],
+        html = (json \ "html").as[String],
         published = (json \ "published").as[Boolean],
         creationTime = (json \ "creationTime").asOpt[DateTime],
         lastUpdateTime = (json \ "lastUpdateTime").asOpt[DateTime]))
@@ -20,7 +21,8 @@ object Post {
     def writes(post: Post): JsObject = Json.obj(
       "id" -> post.id,
       "title" -> post.title,
-      "content" -> post.content,
+      "markdown" -> post.markdown,
+      "html" -> post.html,
       "published" -> post.published,
       "creationTime" -> post.creationTime,
       "lastUpdateTime" -> post.lastUpdateTime)
@@ -30,7 +32,8 @@ object Post {
 case class Post(
   id: Option[Long],
   title: Option[String],
-  content: String,
+  markdown: String,
+  html: String,
   published: Boolean,
   creationTime: Option[DateTime],
   lastUpdateTime: Option[DateTime])

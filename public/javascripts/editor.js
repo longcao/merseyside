@@ -16,7 +16,8 @@ $('#submitPost').click(function(event) {
   event.preventDefault();
   var data = {
     title: $('#title').val(),
-    content: editor.exportFile(null, 'html'),
+    markdown: editor.exportFile(null, 'text'),
+    html: editor.exportFile(null, 'html'),
     published: $('#published').is(':checked')
   };
 

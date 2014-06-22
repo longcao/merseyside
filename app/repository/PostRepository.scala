@@ -12,12 +12,13 @@ object PostRepository extends Repository {
   class Posts(tag: Tag) extends Table[Post](tag, "posts") {
     def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
     def title = column[String]("title")
-    def content = column[String]("content")
+    def markdown = column[String]("markdown")
+    def html = column[String]("html")
     def published = column[Boolean]("published")
     def creationTime = column[DateTime]("creationTime")
     def lastUpdateTime = column[DateTime]("lastUpdateTime")
 
-    def * = (id.?, title.?, content, published, creationTime.?, lastUpdateTime.?) <> ((Post.apply _).tupled, Post.unapply)
+    def * = (id.?, title.?, markdown, html, published, creationTime.?, lastUpdateTime.?) <> ((Post.apply _).tupled, Post.unapply)
   }
   val posts = TableQuery[Posts]
 

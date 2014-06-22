@@ -1,6 +1,6 @@
 package service
 
-import models.{ TokenRepository, UserRepository }
+import repository.{ TokenRepository, UserRepository }
 
 import org.joda.time.DateTime
 

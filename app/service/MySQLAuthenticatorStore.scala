@@ -1,6 +1,6 @@
 package service
 
-import models.AuthenticatorRepository
+import repository.AuthenticatorRepository
 
 import play.api.Application
 

@@ -1,4 +1,4 @@
-package models
+package repository
 
 import com.github.tototoshi.slick.MySQLJodaSupport._
 
@@ -63,4 +63,3 @@ object TokenRepository extends Repository {
     q.delete
   }
 }
-

@@ -14,13 +14,10 @@ import repository.PostRepository
 
 import scala.concurrent.Future
 
-import securesocial.core.SecureSocial
-
 trait BlogController extends Controller
-  with SecureSocial
   with BlogCrud {
 
-  def editor = SecuredAction {
+  def editor = Action {
     val editor: Html = views.html.editor()
     Ok(views.html.master(editor))
   }
@@ -41,7 +38,7 @@ trait BlogController extends Controller
 }
 
 trait BlogCrud {
-  self: Controller with SecureSocial =>
+  self: Controller =>
 
   def get(id: Long) = Action.async { request =>
     Future {
@@ -56,7 +53,7 @@ trait BlogCrud {
     }
   }
 
-  def save = SecuredAction(ajaxCall = true)(parse.json) { implicit request =>
+  def save = Action(parse.json) { implicit request =>
     val post: Post = request.body.as[Post]
     val savedPost: Post = PostRepository.save(post)
     Ok(Json.toJson(savedPost))

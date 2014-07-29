@@ -10,8 +10,6 @@ import play.api.libs.json.Json
 import play.api.mvc._
 import play.api.templates.Html
 
-import repository.PostRepository
-
 import scala.concurrent.Future
 
 trait BlogController extends Controller
@@ -26,23 +24,26 @@ trait BlogController extends Controller
     Ok(views.html.master(Html.empty))
   }
 
+  /*
   def permalink(id: Long) = Action {
-    PostRepository.findById(Option(id)) match {
+    Option(id) match {
       case Some(post: Post) =>
         val permalink = views.html.blog.permalink(post)
         Ok(views.html.master(permalink))
       case _ => NotFound(views.html.master(views.html.notfound()))
     }
   }
+  */
 
 }
 
 trait BlogCrud {
   self: Controller =>
 
+  /*
   def get(id: Long) = Action.async { request =>
     Future {
-      PostRepository.findById(Option(id)) match {
+      Option(id) match {
         case Some(post: Post) =>
           Ok(Json.toJson(post))
             .withHeaders(CONTENT_TYPE -> JSON)
@@ -52,11 +53,11 @@ trait BlogCrud {
       }
     }
   }
+  */
 
   def save = Action(parse.json) { implicit request =>
     val post: Post = request.body.as[Post]
-    val savedPost: Post = PostRepository.save(post)
-    Ok(Json.toJson(savedPost))
+    Ok(Json.toJson(post))
       .withHeaders(CONTENT_TYPE -> JSON)
   }
 }

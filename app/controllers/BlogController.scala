@@ -9,11 +9,14 @@ import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json.Json
 import play.api.mvc._
 import play.api.templates.Html
+import play.modules.reactivemongo.MongoController
+import play.modules.reactivemongo.json.collection.JSONCollection
+
+import reactivemongo.api._
 
 import scala.concurrent.Future
 
-trait BlogController extends Controller
-  with BlogCrud {
+trait BlogController extends Controller with MongoController {
 
   def editor = Action {
     val editor: Html = views.html.editor()
@@ -35,11 +38,6 @@ trait BlogController extends Controller
   }
   */
 
-}
-
-trait BlogCrud {
-  self: Controller =>
-
   /*
   def get(id: Long) = Action.async { request =>
     Future {
@@ -55,10 +53,15 @@ trait BlogCrud {
   }
   */
 
-  def save = Action(parse.json) { implicit request =>
+  def collection: JSONCollection = db.collection[JSONCollection]("posts")
+
+  def save = Action.async(parse.json) { implicit request =>
     val post: Post = request.body.as[Post]
-    Ok(Json.toJson(post))
-      .withHeaders(CONTENT_TYPE -> JSON)
+    val postJson = Json.toJson(post)
+    collection.insert(postJson).map { lastError =>
+      if (!lastError.ok) Logger.info(s"Mongo LastError: $lastError")
+      Ok(postJson)
+    }
   }
 }
 

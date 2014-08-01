@@ -26,10 +26,13 @@ $('#submitPost').click(function(event) {
     contentType: 'application/json; charset=utf-8',
     url: '/save',
     dataType: 'json',
-    data: JSON.stringify(data),
+    data: JSON.stringify(data)
+
+    /*
     success: function(data) {
       window.location.href = "/blog/" + data.id;
     }
+    */
   });
 
 });

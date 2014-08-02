@@ -58,9 +58,7 @@ object BlogController extends Controller with MongoController {
     val post: Post = request.body.as[Post]
 
     val postJson: JsValue = Json.toJson(
-      post.copy(
-        creationTime = post.creationTime.orElse(Some(DateTime.now())),
-        lastUpdateTime = Some(DateTime.now())))
+      post.copy(lastUpdateTime = Some(DateTime.now())))
 
     collection.insert(postJson).map { lastError =>
       if (!lastError.ok) {

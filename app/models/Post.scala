@@ -17,5 +17,4 @@ case class Post(
   markdown: String,
   html: String,
   published: Boolean,
-  creationTime: Option[DateTime],
   lastUpdateTime: Option[DateTime])

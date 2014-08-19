@@ -6,6 +6,8 @@
 GET     /                           controllers.Application.home
 GET     /about                      controllers.Application.about
 
+GET     /resume                     controllers.Application.resume
+
 # Blog
 GET     /editor                     controllers.BlogController.editor
 GET     /blog                       controllers.BlogController.blog

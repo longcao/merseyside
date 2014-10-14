@@ -6,12 +6,12 @@ import play.api._
 import play.api.libs.json.Json
 import play.api.mvc._
 import play.api.Play.current
-import play.api.templates.Html
+import play.twirl.api.Html
 
 object Application extends Controller {
 
   def home = Action {
-    Ok(views.html.master(Html.empty))
+    Ok(views.html.master(Html("")))
   }
 
   def about = Action {

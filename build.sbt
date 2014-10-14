@@ -2,8 +2,10 @@ name := "merseyside"
 
 version := "1.0-SNAPSHOT"
 
-libraryDependencies ++= Seq(
-  "org.reactivemongo" %% "play2-reactivemongo" % "0.10.2"
-)
+lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
-play.Project.playScalaSettings
+scalaVersion := "2.11.1"
+
+libraryDependencies ++= Seq(
+  "org.reactivemongo" %% "play2-reactivemongo" % "0.10.5.0.akka23"
+)

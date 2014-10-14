@@ -10,10 +10,10 @@ import play.api.http.HeaderNames.CONTENT_TYPE
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json._
 import play.api.mvc._
-import play.api.templates.Html
 import play.modules.reactivemongo.MongoController
 import play.modules.reactivemongo.json.BSONFormats.BSONObjectIDFormat
 import play.modules.reactivemongo.json.collection.JSONCollection
+import play.twirl.api.Html
 
 import reactivemongo.api._
 import reactivemongo.bson.BSONObjectID
@@ -28,7 +28,7 @@ object BlogController extends Controller with MongoController {
   }
 
   def blog = Action {
-    Ok(views.html.master(Html.empty))
+    Ok(views.html.master(Html("")))
   }
 
   /*

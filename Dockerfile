@@ -37,5 +37,5 @@ RUN         rm /root/target/universal/stage/bin/*.bat
 
 # TESTS PASSED -- CONFIGURE IMAGE
 WORKDIR     /root
-ENTRYPOINT  target/universal/stage/bin/$(ls target/universal/stage/bin)
 EXPOSE      9000
+CMD         target/universal/stage/bin/$(ls target/universal/stage/bin)

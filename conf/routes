@@ -11,7 +11,9 @@ GET     /resume                     controllers.Application.resume
 # Blog
 GET     /editor                     controllers.BlogController.editor
 GET     /blog                       controllers.BlogController.blog
-#GET     /blog/$id<[0-9]+>           controllers.BlogController.permalink(id: Long)
+GET     /blog/:id                   controllers.BlogController.permalink(id: String)
+GET     /blog/:id/                  controllers.BlogController.permalink(id: String)
+GET     /blog/:id/:title            controllers.BlogController.permalinkWithTitle(id: String, title: String)
 
 # Blog crud
 POST    /save                       controllers.BlogController.save

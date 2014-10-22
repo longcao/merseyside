@@ -19,8 +19,11 @@ import reactivemongo.api._
 import reactivemongo.bson.BSONObjectID
 
 import scala.concurrent.Future
+import scala.util.{ Failure, Success }
 
 object BlogController extends Controller with MongoController {
+
+  def collection: JSONCollection = db.collection[JSONCollection]("posts")
 
   def editor = Action {
     val editor: Html = views.html.editor()
@@ -31,28 +34,37 @@ object BlogController extends Controller with MongoController {
     Ok(views.html.master(Html("")))
   }
 
-  /*
-  def permalink(id: Long) = Action {
-    Option(id) match {
-      case Some(post: Post) =>
-        val permalink = views.html.blog.permalink(post)
-        Ok(views.html.master(permalink))
-      case _ => NotFound(views.html.master(views.html.notfound()))
+  def permalink(id: String) = Action.async { request =>
+    BSONObjectID.parse(id) match {
+      case Success(parsedId) =>
+        collection.find(Json.obj("_id" -> parsedId))
+          .one[Post]
+          .map { _ match {
+            case Some(post: Post) =>
+              val permalink = views.html.blog.permalink(post)
+              Ok(views.html.master(permalink))
+            case _ => NotFound(views.html.master(views.html.notfound()))
+          }
+        }
+      case Failure(ex) => Future.successful(NotFound(views.html.master(views.html.notfound())))
     }
   }
-  */
+
+  def permalinkWithTitle(id: String, title: String) = permalink(id)
 
   def get(id: String) = Action.async { request =>
-    collection.find(Json.obj("_id" -> BSONObjectID(id)))
-      .one[Post]
-      .map { _ match {
-        case Some(post) => Ok(Json.toJson(post)).withHeaders(CONTENT_TYPE -> JSON)
-        case None => NotFound
-      }
+    BSONObjectID.parse(id) match {
+      case Success(parsedId) =>
+        collection.find(Json.obj("_id" -> BSONObjectID(id)))
+          .one[Post]
+          .map { _ match {
+            case Some(post) => Ok(Json.toJson(post)).withHeaders(CONTENT_TYPE -> JSON)
+            case None => NotFound
+          }
+        }
+      case Failure(ex) => Future.successful(NotFound)
     }
   }
-
-  def collection: JSONCollection = db.collection[JSONCollection]("posts")
 
   def save = Action.async(parse.json) { implicit request =>
     val post: Post = request.body.as[Post]

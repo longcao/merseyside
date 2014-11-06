@@ -30,8 +30,16 @@ object BlogController extends Controller with MongoController {
     Ok(views.html.master(editor))
   }
 
-  def blog = Action {
-    Ok(views.html.master(Html("")))
+  def frontpage = Action.async { request =>
+    val query = Json.obj("published" -> true)
+    collection.find(query)
+      .cursor[Post]
+      .collect[List]()
+      .map { posts =>
+        println(posts.head._id.get.stringify)
+        val frontpage = views.html.blog.frontpage(posts)
+        Ok(views.html.master(frontpage))
+      }
   }
 
   def permalink(id: String) = Action.async { request =>

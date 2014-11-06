@@ -36,7 +36,6 @@ object BlogController extends Controller with MongoController {
       .cursor[Post]
       .collect[List]()
       .map { posts =>
-        println(posts.head._id.get.stringify)
         val frontpage = views.html.blog.frontpage(posts)
         Ok(views.html.master(frontpage))
       }

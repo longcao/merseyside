@@ -4,7 +4,7 @@
 @for(post <- posts; id <- post._id) {
   <li>
     <a href="/blog/@id.stringify">
-      @if(post.title == Some("")) {
+      @if(post.title == "") {
         TERRIBLE DEFAULT BEHAVIOR PLEASE CHANGE ME
       } else {
         @post.title

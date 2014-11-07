@@ -2,6 +2,8 @@ package controllers
 
 import models.Post
 
+import org.hashids._
+
 import org.joda.time.DateTime
 
 import play.api._
@@ -41,43 +43,46 @@ object BlogController extends Controller with MongoController {
       }
   }
 
-  def permalink(id: String) = Action.async { request =>
-    BSONObjectID.parse(id) match {
-      case Success(parsedId) =>
-        collection.find(Json.obj("_id" -> parsedId))
-          .one[Post]
-          .map { _ match {
-            case Some(post: Post) =>
-              val permalink = views.html.blog.permalink(post)
-              Ok(views.html.master(permalink))
-            case _ => NotFound(views.html.master(views.html.notfound()))
-          }
-        }
-      case Failure(ex) => Future.successful(NotFound(views.html.master(views.html.notfound())))
+  def permalink(slug: String) = Action.async { request =>
+    collection.find(Json.obj("slug" -> slug))
+      .one[Post]
+      .map { _ match {
+        case Some(post: Post) =>
+          val permalink = views.html.blog.permalink(post)
+          Ok(views.html.master(permalink))
+        case _ => NotFound(views.html.master(views.html.notfound()))
+      }
     }
   }
 
   def permalinkWithTitle(id: String, title: String) = permalink(id)
 
-  def get(id: String) = Action.async { request =>
-    BSONObjectID.parse(id) match {
-      case Success(parsedId) =>
-        collection.find(Json.obj("_id" -> BSONObjectID(id)))
-          .one[Post]
-          .map { _ match {
-            case Some(post) => Ok(Json.toJson(post)).withHeaders(CONTENT_TYPE -> JSON)
-            case None => NotFound
-          }
-        }
-      case Failure(ex) => Future.successful(NotFound)
+  def get(slug: String) = Action.async { request =>
+    collection.find(Json.obj("slug" -> slug))
+      .one[Post]
+      .map { _ match {
+        case Some(post) => Ok(Json.toJson(post)).withHeaders(CONTENT_TYPE -> JSON)
+        case None => NotFound
+      }
     }
   }
+
+  import play.api.Play.current
+  val salt: String = Play.configuration
+    .getString("hashids.salt")
+    .getOrElse(throw new Exception("missing hashids.salt config value"))
+
+  val hasher: Hashids = Hashids(salt)
+
+  def generateNewSlug: String = hasher.encode(math.abs(new java.util.Random().nextLong()))
 
   def save = Action.async(parse.json) { implicit request =>
     val post: Post = request.body.as[Post]
 
     val postJson: JsValue = Json.toJson(
-      post.copy(lastUpdateTime = Some(DateTime.now())))
+      post.copy(
+        slug = post.slug.orElse(Some(generateNewSlug)),
+        lastUpdateTime = Some(DateTime.now())))
 
     collection.insert(postJson).map { lastError =>
       if (!lastError.ok) {

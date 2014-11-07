@@ -14,6 +14,7 @@ object Post {
 
 case class Post(
   _id: Option[BSONObjectID],
+  slug: Option[String],
   title: String,
   markdown: String,
   html: String,

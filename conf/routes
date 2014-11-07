@@ -11,13 +11,13 @@ GET     /resume                     controllers.Application.resume
 # Blog
 GET     /editor                     controllers.BlogController.editor
 GET     /blog                       controllers.BlogController.frontpage
-GET     /blog/:id                   controllers.BlogController.permalink(id: String)
-GET     /blog/:id/                  controllers.BlogController.permalink(id: String)
-GET     /blog/:id/:title            controllers.BlogController.permalinkWithTitle(id: String, title: String)
+GET     /blog/:slug                 controllers.BlogController.permalink(slug: String)
+GET     /blog/:slug/                controllers.BlogController.permalink(slug: String)
+GET     /blog/:slug/:title          controllers.BlogController.permalinkWithTitle(slug: String, title: String)
 
 # Blog crud
 POST    /save                       controllers.BlogController.save
-GET     /blog.json/:id              controllers.BlogController.get(id: String)
+GET     /blog.json/:slug            controllers.BlogController.get(slug: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

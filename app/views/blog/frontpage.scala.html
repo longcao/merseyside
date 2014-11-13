@@ -1,9 +1,9 @@
 @(posts: List[Post])
 
 <ul>
-@for(post <- posts; id <- post._id) {
+@for(post <- posts; slug <- post.slug) {
   <li>
-    <a href="/blog/@id.stringify">
+    <a href="/blog/@slug">
       @if(post.title == "") {
         TERRIBLE DEFAULT BEHAVIOR PLEASE CHANGE ME
       } else {

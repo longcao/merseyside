@@ -3,7 +3,7 @@
 <ul>
 @for(post <- posts; slug <- post.slug) {
   <li>
-    <a href="/blog/@slug">
+    <a href="/blog/@slug/@post.urlifiedTitle">
       @if(post.title == "") {
         TERRIBLE DEFAULT BEHAVIOR PLEASE CHANGE ME
       } else {

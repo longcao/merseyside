@@ -34,9 +34,12 @@ object BlogController extends Controller with MongoController {
 
   def frontpage = Action.async { request =>
     val query = Json.obj("published" -> true)
+    val sort = Json.obj("lastUpdateTime" -> -1)
+
     collection.find(query)
+      .sort(sort)
       .cursor[Post]
-      .collect[List]()
+      .collect[List](upTo = 5)
       .map { posts =>
         val frontpage = views.html.blog.frontpage(posts)
         Ok(views.html.master(frontpage))

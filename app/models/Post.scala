@@ -21,6 +21,11 @@ case class Post(
   published: Boolean,
   lastUpdateTime: Option[DateTime]) {
 
+  lazy val urlifiedTitle: String =
+    title.replaceAll("[^A-Za-z0-9]", "-") // only allow alphanumerics
+      .replaceAll("-+", "-") // no extra dashes
+      .toLowerCase
+
   val publishTimeMillis: Option[Long] = _id.map(_.time)
   val publishDate: Option[DateTime] = publishTimeMillis.map(new DateTime(_))
   val publishDateFormatted: Option[String] = publishDate.map(DateTimeFormat.fullDateTime().print(_))

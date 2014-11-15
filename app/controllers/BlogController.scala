@@ -2,8 +2,6 @@ package controllers
 
 import models.Post
 
-import org.hashids._
-
 import org.joda.time.DateTime
 
 import play.api._
@@ -23,6 +21,8 @@ import reactivemongo.bson.BSONObjectID
 
 import scala.concurrent.Future
 import scala.util.{ Failure, Success }
+
+import utils.Hasher
 
 object BlogController extends Controller with MongoController {
 
@@ -75,21 +75,12 @@ object BlogController extends Controller with MongoController {
     }
   }
 
-  import play.api.Play.current
-  val salt: String = Play.configuration
-    .getString("hashids.salt")
-    .getOrElse(throw new Exception("missing hashids.salt config value"))
-
-  val hasher: Hashids = Hashids(salt)
-
-  def generateNewSlug: String = hasher.encode(math.abs(new java.util.Random().nextLong()))
-
   def save = Action.async(parse.json) { implicit request =>
     val post: Post = request.body.as[Post]
 
     val postJson: JsValue = Json.toJson(
       post.copy(
-        slug = post.slug.orElse(Some(generateNewSlug)),
+        slug = post.slug.orElse(Some(Hasher.generateNewSlug)),
         lastUpdateTime = Some(DateTime.now())))
 
     collection.insert(postJson).map { lastError =>

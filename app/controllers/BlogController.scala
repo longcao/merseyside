@@ -18,6 +18,7 @@ import play.modules.reactivemongo.json.collection.JSONCollection
 import play.twirl.api.Html
 
 import reactivemongo.api._
+import reactivemongo.api.indexes._
 import reactivemongo.bson.BSONObjectID
 
 import scala.concurrent.Future
@@ -26,6 +27,10 @@ import scala.util.{ Failure, Success }
 object BlogController extends Controller with MongoController {
 
   def collection: JSONCollection = db.collection[JSONCollection]("posts")
+
+  collection.indexesManager.ensure(Index(
+    Seq(
+      "slug" -> IndexType.Ascending)))
 
   def editor = Action {
     val editor: Html = views.html.editor()

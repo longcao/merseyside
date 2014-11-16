@@ -17,7 +17,7 @@
 
   #logo {
     margin-bottom: 20px;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "PT Serif", serif;
     letter-spacing: -1px;
     font-weight: bold;
     text-decoration: none;
@@ -106,3 +106,5 @@
       font-weight: normal;
       font-style: normal; }
 */
+
+@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic);

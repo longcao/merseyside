@@ -24,7 +24,10 @@ ADD         project/build.properties /root/project/
 RUN         cd /root; /usr/local/activator/activator test stage
 RUN         rm /root/target/universal/stage/bin/*.bat
 
-# TESTS PASSED -- CONFIGURE IMAGE
+# Copy "/public" assets folder over so it's accessible with Play.getFile
+RUN         cp -r /root/public /root/target/universal/stage/public
+
+# Run
 WORKDIR     /root
 EXPOSE      9000
 CMD         target/universal/stage/bin/$(ls target/universal/stage/bin)

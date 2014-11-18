@@ -26,7 +26,12 @@ case class Post(
       .replaceAll("-+", "-") // no extra dashes
       .toLowerCase
 
-  val createTimeMillis: Option[Long] = _id.map(_.time)
-  val createDate: Option[DateTime] = createTimeMillis.map(new DateTime(_))
-  val createDateFormatted: Option[String] = createDate.map(DateTimeFormat.fullDateTime().print(_))
+  lazy val createTimeMillis: Option[Long] = _id.map(_.time)
+  lazy val createDate: Option[DateTime] = createTimeMillis.map(new DateTime(_))
+
+  //Wednesday, November 12, 2014
+  lazy val createDateFormatted: Option[String] = createDate.map(DateTimeFormat.fullDate().print(_))
+
+  //Wednesday, November 12, 2014 10:50:13 PM EST
+  lazy val createDateTimeFormatted: Option[String] = createDate.map(DateTimeFormat.fullDateTime().print(_))
 }

@@ -1,6 +1,10 @@
 @(post: Post)
-<header>
+<div class="nine columns alpha">
   <h1>@post.title</h1>
-</header>
-<p>@post.createDateFormatted</p>
-@Html(post.html)
+</div>
+<div class="three columns omega">
+  <aside>@post.createDateFormatted</aside>
+</div>
+<div class="twelve columns alpha">
+  @Html(post.html)
+</div>

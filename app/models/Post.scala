@@ -26,7 +26,7 @@ case class Post(
       .replaceAll("-+", "-") // no extra dashes
       .toLowerCase
 
-  val publishTimeMillis: Option[Long] = _id.map(_.time)
-  val publishDate: Option[DateTime] = publishTimeMillis.map(new DateTime(_))
-  val publishDateFormatted: Option[String] = publishDate.map(DateTimeFormat.fullDateTime().print(_))
+  val createTimeMillis: Option[Long] = _id.map(_.time)
+  val createDate: Option[DateTime] = createTimeMillis.map(new DateTime(_))
+  val createDateFormatted: Option[String] = createDate.map(DateTimeFormat.fullDateTime().print(_))
 }

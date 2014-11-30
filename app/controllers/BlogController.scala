@@ -78,12 +78,18 @@ object BlogController extends Controller with MongoController {
   def save = Action.async(parse.json) { request =>
     val post: Post = request.body.as[Post]
 
+    val slug: String = post.slug.getOrElse(Hasher.generateNewSlug)
+
     val postJson: JsValue = Json.toJson(
       post.copy(
-        slug = post.slug.orElse(Some(Hasher.generateNewSlug)),
+        slug = Some(slug),
         lastUpdateTime = Some(DateTime.now())))
 
-    collection.insert(postJson).map { lastError =>
+    collection.update(
+      selector = Json.obj("slug" -> slug),
+      update = postJson,
+      upsert = true
+    ).map { lastError =>
       if (!lastError.ok) {
         Logger.info(s"Mongo LastError: $lastError")
         InternalServerError("Error saving post")
@@ -93,28 +99,4 @@ object BlogController extends Controller with MongoController {
     }
   }
 
-  def unpublish(slug: String) = Action.async(parse.anyContent) { request =>
-    collection.update(
-      selector = Json.obj("slug" -> slug),
-      update = Json.obj(
-        "$set" -> Json.obj(
-          "published" -> false)
-        )
-    ).flatMap { lastError =>
-      if (!lastError.ok) {
-        Logger.info(s"Mongo LastError: $lastError")
-        Future.successful(InternalServerError("Error unpublishing post"))
-      } else if (lastError.updated > 0) {
-        collection.find(Json.obj("slug" -> slug))
-          .one[Post]
-          .map { _ match {
-            case Some(post) => Ok(Json.toJson(post)).withHeaders(CONTENT_TYPE -> JSON)
-            case None => NotFound
-          }
-        }
-      } else {
-        Future.successful(NotFound)
-      }
-    }
-  }
 }

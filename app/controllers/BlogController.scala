@@ -92,4 +92,27 @@ object BlogController extends Controller with MongoController {
       }
     }
   }
+
+  def unpublish(slug: String) = Action.async(parse.anyContent) { request =>
+    collection.update(
+      selector = Json.obj("slug" -> slug),
+      update = Json.obj(
+        "$set" -> Json.obj(
+          "published" -> false)
+        )
+    ).flatMap { lastError =>
+      if (!lastError.ok) {
+        Logger.info(s"Mongo LastError: $lastError")
+        Future.successful(InternalServerError("Error unpublishing post"))
+      } else {
+        collection.find(Json.obj("slug" -> slug))
+          .one[Post]
+          .map { _ match {
+            case Some(post) => Ok(Json.toJson(post)).withHeaders(CONTENT_TYPE -> JSON)
+            case None => NotFound
+          }
+        }
+      }
+    }
+  }
 }

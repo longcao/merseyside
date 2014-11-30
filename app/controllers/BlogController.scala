@@ -75,7 +75,7 @@ object BlogController extends Controller with MongoController {
     }
   }
 
-  def save = Action.async(parse.json) { implicit request =>
+  def save = Action.async(parse.json) { request =>
     val post: Post = request.body.as[Post]
 
     val postJson: JsValue = Json.toJson(

@@ -104,7 +104,7 @@ object BlogController extends Controller with MongoController {
       if (!lastError.ok) {
         Logger.info(s"Mongo LastError: $lastError")
         Future.successful(InternalServerError("Error unpublishing post"))
-      } else {
+      } else if (lastError.updated > 0) {
         collection.find(Json.obj("slug" -> slug))
           .one[Post]
           .map { _ match {
@@ -112,6 +112,8 @@ object BlogController extends Controller with MongoController {
             case None => NotFound
           }
         }
+      } else {
+        Future.successful(NotFound)
       }
     }
   }

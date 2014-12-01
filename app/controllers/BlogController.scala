@@ -32,9 +32,9 @@ object BlogController extends Controller with MongoController {
     Seq(
       "slug" -> IndexType.Ascending)))
 
-  def editor = Action {
-    val editor: Html = views.html.editor()
-    Ok(views.html.master(editor))
+  def editor(slug: Option[String]) = Action.async { request =>
+    val editor: Html = views.html.editor(slug)
+    Future.successful(Ok(views.html.master(editor)))
   }
 
   def frontpage = Action.async { request =>

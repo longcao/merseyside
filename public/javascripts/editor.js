@@ -14,25 +14,29 @@ var editor = new EpicEditor(options).load();
 
 $('#submitPost').click(function(event) {
   event.preventDefault();
+
   var data = {
     title: $('#title').val(),
+    slug: $('#postSlug').data('post-slug'),
     markdown: editor.exportFile(null, 'text'),
     html: editor.exportFile(null, 'html'),
     published: $('#published').is(':checked')
   };
+
+  // delete the slug field if it's an empty string or undefined
+  if (!data.slug) {
+    delete data.slug
+  }
 
   $.ajax({
     type: 'POST',
     contentType: 'application/json; charset=utf-8',
     url: '/save',
     dataType: 'json',
-    data: JSON.stringify(data)
-
-    /*
+    data: JSON.stringify(data),
     success: function(data) {
-      window.location.href = "/blog/" + data.id;
+      window.location.href = "/blog/" + data.slug;
     }
-    */
   });
 
 });

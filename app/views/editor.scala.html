@@ -1,7 +1,10 @@
+@(slug: Option[String])
+
 <header>
   <h2>New post</h2>
 </header>
 
+<div id="postSlug" data-post-slug="@slug.getOrElse("")"></div>
 <input type="text" placeholder="Title" id="title">
 <label for="published">
   <input type="checkbox" id="published" value="true" checked>

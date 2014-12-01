@@ -9,7 +9,7 @@ GET     /about                      controllers.Application.about
 GET     /resume                     controllers.Application.resume
 
 # Blog
-GET     /editor                     controllers.BlogController.editor
+GET     /editor                     controllers.BlogController.editor(slug: Option[String])
 GET     /blog                       controllers.BlogController.frontpage
 GET     /blog/:slug.json            controllers.BlogController.get(slug: String)
 GET     /blog/:slug                 controllers.BlogController.permalink(slug: String)

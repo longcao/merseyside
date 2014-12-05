@@ -1,15 +1,17 @@
 @(posts: List[Post])
 
-<ul>
+<ul class="frontpage">
 @for(post <- posts; slug <- post.slug) {
   <li>
-    <a href="/blog/@slug/@post.urlifiedTitle">
-      @if(post.title == "") {
-        TERRIBLE DEFAULT BEHAVIOR PLEASE CHANGE ME
-      } else {
-        @post.title
-      }
-    </a>
+    <h2>
+      <a href="/blog/@slug/@post.urlifiedTitle">
+        @if(post.title == "") {
+          TERRIBLE DEFAULT BEHAVIOR PLEASE CHANGE ME
+        } else {
+          @post.title
+        }
+      </a>
+    </h2>
   </li>
 }
 </ul>

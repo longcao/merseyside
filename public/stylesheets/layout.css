@@ -49,6 +49,14 @@
 
   img.scale-with-grid { margin-bottom: 20px; }
 
+  ul.frontpage {
+    list-style: none;
+  }
+
+  ul.frontpage li {
+    margin-bottom: 36px;
+  }
+
 /* #Page Styles
 ================================================== */
 

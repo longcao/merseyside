@@ -1,5 +1,7 @@
 package controllers
 
+import collections.PostCollection
+
 import models.Post
 
 import org.joda.time.DateTime
@@ -10,27 +12,14 @@ import play.api.http.HeaderNames.CONTENT_TYPE
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json._
 import play.api.mvc._
-import play.modules.reactivemongo.MongoController
-import play.modules.reactivemongo.json.BSONFormats.BSONObjectIDFormat
-import play.modules.reactivemongo.json.collection.JSONCollection
 import play.twirl.api.Html
-
-import reactivemongo.api._
-import reactivemongo.api.indexes._
-import reactivemongo.bson.BSONObjectID
 
 import scala.concurrent.Future
 import scala.util.{ Failure, Success }
 
 import utils.Hasher
 
-object BlogController extends Controller with MongoController {
-
-  def collection: JSONCollection = db.collection[JSONCollection]("posts")
-
-  collection.indexesManager.ensure(Index(
-    Seq(
-      "slug" -> IndexType.Ascending)))
+object BlogController extends Controller with PostCollection {
 
   def editor(slug: Option[String]) = Action.async { request =>
     val editor: Html = views.html.editor(slug)
@@ -41,7 +30,7 @@ object BlogController extends Controller with MongoController {
     val query = Json.obj("published" -> true)
     val sort = Json.obj("lastUpdateTime" -> -1)
 
-    collection.find(query)
+    postCollection.find(query)
       .sort(sort)
       .cursor[Post]
       .collect[List](upTo = 5)
@@ -52,7 +41,7 @@ object BlogController extends Controller with MongoController {
   }
 
   def permalink(slug: String) = Action.async { request =>
-    collection.find(Json.obj("slug" -> slug))
+    postCollection.find(Json.obj("slug" -> slug))
       .one[Post]
       .map { _ match {
         case Some(post: Post) =>
@@ -66,7 +55,7 @@ object BlogController extends Controller with MongoController {
   def permalinkWithTitle(id: String, title: String) = permalink(id)
 
   def get(slug: String) = Action.async { request =>
-    collection.find(Json.obj("slug" -> slug))
+    postCollection.find(Json.obj("slug" -> slug))
       .one[Post]
       .map { _ match {
         case Some(post) => Ok(Json.toJson(post)).withHeaders(CONTENT_TYPE -> JSON)
@@ -85,7 +74,7 @@ object BlogController extends Controller with MongoController {
         slug = Some(slug),
         lastUpdateTime = Some(DateTime.now())))
 
-    collection.update(
+    postCollection.update(
       selector = Json.obj("slug" -> slug),
       update = postJson,
       upsert = true

@@ -6,7 +6,7 @@
 GET     /                           controllers.BlogController.frontpage
 GET     /about                      controllers.Application.about
 
-GET     /resume                     controllers.Application.resume
+GET     /resume                     controllers.ResumeController.resume
 
 # Blog
 GET     /editor                     controllers.BlogController.editor(slug: Option[String])

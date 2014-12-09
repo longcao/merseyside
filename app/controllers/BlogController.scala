@@ -15,7 +15,6 @@ import play.api.mvc._
 import play.twirl.api.Html
 
 import scala.concurrent.Future
-import scala.util.{ Failure, Success }
 
 import utils.Hasher
 

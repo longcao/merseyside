@@ -57,6 +57,17 @@
     margin-bottom: 36px;
   }
 
+  .entypo-container {
+    margin-top: 15px;
+    margin-bottom: 20px;
+  }
+
+  .entypo-icon {
+    font-family: 'Entypo';
+    font-size: 96px;
+    text-decoration: none;
+  }
+
 /* #Page Styles
 ================================================== */
 
@@ -101,18 +112,12 @@
 
 /* #Font-Face
 ================================================== */
-/*   This is the proper syntax for an @font-face file
-    Just create a "fonts" folder at the root,
-    copy your FontName into code below and remove
-    comment brackets */
 
-/*  @font-face {
-      font-family: 'FontName';
-      src: url('../fonts/FontName.eot');
-      src: url('../fonts/FontName.eot?iefix') format('eot'),
-           url('../fonts/FontName.woff') format('woff'),
-           url('../fonts/FontName.ttf') format('truetype'),
-           url('../fonts/FontName.svg#webfontZam02nTh') format('svg');
-      font-weight: normal;
-      font-style: normal; }
-*/
+@font-face {
+  font-family: 'Entypo';
+  src: url('../fonts/entypo-social.eot'); /* IE9 Compat Modes */
+  src: url('../fonts/entypo-social.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/entypo-social.woff') format('woff'), /* Pretty Modern Browsers */
+       url('../fonts/entypo-social.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('../fonts/entypo-social.svg#svgEntypo') format('svg'); /* Legacy iOS */
+}

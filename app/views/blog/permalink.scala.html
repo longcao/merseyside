@@ -1,10 +1,10 @@
 @(post: Post)
-<div id="postTitle" class="nine columns alpha" data-post-slug="@post.slug">
+<div id="postTitle" class="six columns" data-post-slug="@post.slug">
   <h1>@post.title</h1>
 </div>
-<div class="three columns omega">
+<div class="three columns">
   <aside>@post.createDateFormatted</aside>
 </div>
-<div class="twelve columns alpha">
+<div class="twelve columns">
   @Html(post.html)
 </div>

@@ -12,7 +12,7 @@ div.container {
   padding-bottom: 60px;
 }
 
-/* sidebar */
+/* -- Sidebar -- */
 nav {
   position: fixed;
   width: 160px;
@@ -47,6 +47,7 @@ nav ul li a:focus {
   color: #222;
 }
 
+/* -- Frontpage -- */
 ul.frontpage {
   list-style: none;
 }
@@ -55,6 +56,7 @@ ul.frontpage li {
   margin-bottom: 36px;
 }
 
+/* -- Entypo -- */
 .entypo-container {
   line-height: normal;
 }
@@ -64,3 +66,8 @@ ul.frontpage li {
   font-size: 96px;
   text-decoration: none;
 }
+
+/* -- Links -- */
+a, a:visited { color: #333; text-decoration: underline; outline: 0; }
+a:hover, a:focus { color: #000; }
+p a, p a:visited { line-height: inherit; }

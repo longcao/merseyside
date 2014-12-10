@@ -15,36 +15,25 @@ div.container {
 /* -- Sidebar -- */
 nav {
   position: fixed;
-  width: 160px;
 }
 
 #logo {
-  margin-bottom: 20px;
   font-family: "PT Serif", serif;
-  letter-spacing: -1px;
   font-weight: bold;
   text-decoration: none;
 }
 
-nav ul { float: left; }
-
 nav ul li {
   display: block;
-  margin-bottom: 10px;
 }
 
 nav ul li a,
 nav ul li a:visited,
 nav ul li a:active {
-  font-size: 14px;
+  font-size: 1.4rem;
   color: #555;
   text-decoration: none;
   font-weight: bold;
-}
-
-nav ul li a:hover,
-nav ul li a:focus {
-  color: #222;
 }
 
 /* -- Frontpage -- */
@@ -69,5 +58,5 @@ ul.frontpage li {
 
 /* -- Links -- */
 a, a:visited { color: #333; text-decoration: underline; outline: 0; }
-a:hover, a:focus { color: #000; }
+a:hover, a:focus { color: #E53D32; }
 p a, p a:visited { line-height: inherit; }

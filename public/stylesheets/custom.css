@@ -8,8 +8,8 @@
 }
 
 div.container {
-  padding-top: 60px;
-  padding-bottom: 60px;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
 }
 
 /* -- Sidebar -- */
@@ -42,7 +42,7 @@ ul.frontpage {
 }
 
 ul.frontpage li {
-  margin-bottom: 36px;
+  margin-bottom: 3.6rem;
 }
 
 /* -- Entypo -- */
@@ -52,7 +52,7 @@ ul.frontpage li {
 
 .entypo-icon {
   font-family: 'Entypo';
-  font-size: 96px;
+  font-size: 9.6rem;
   text-decoration: none;
 }
 

@@ -9,7 +9,6 @@
 
 div.container {
   padding-top: 6rem;
-  padding-bottom: 6rem;
 }
 
 /* -- Sidebar -- */
@@ -53,8 +52,9 @@ ul.frontpage li {
 }
 
 /* -- Entypo -- */
-.entypo-container {
+.footer-links {
   line-height: normal;
+  text-align: center;
 }
 
 .entypo-icon {
@@ -67,3 +67,8 @@ ul.frontpage li {
 a, a:visited { color: #333; text-decoration: underline; outline: 0; }
 a:hover, a:focus { color: #E53D32; }
 p a, p a:visited { line-height: inherit; }
+
+hr {
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}

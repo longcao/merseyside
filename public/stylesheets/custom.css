@@ -9,6 +9,7 @@
 
 div.container {
   padding-top: 6rem;
+  min-height: 50rem;
 }
 
 /* -- Sidebar -- */

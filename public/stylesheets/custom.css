@@ -19,19 +19,18 @@ div.container {
 
 /* -- Sidebar -- */
 nav {
-  display: none; /* default to not show nav */
-  position: fixed;
+  position: relative;
 }
 
 @media (min-width: 750px) {
   nav {
     display: block;
+    position: fixed;
   }
 }
 
 #logo {
   font-family: "PT Serif", serif;
-  font-weight: bold;
   text-decoration: none;
 }
 

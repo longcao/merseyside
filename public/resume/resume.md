@@ -29,7 +29,11 @@ Skills
 Work Experience
 ---------------
 
-*   **Platform Engineer**, Gawker Media, _New York, NY_ (Sept 2012 - Present)
+*   **Software Engineer**, Pellucid Analytics, _New York, NY_ (Sept 2014 - Feb 2015)
+
+    -   Backend developer for visualization team, created charts and graphs in Scala
+
+*   **Platform Engineer**, Gawker Media, _New York, NY_ (Sept 2012 - Sept 2014)
 
     -   Backend API development with Scala/Play Framework for Kinja, Gawker's CMS/blog network
     -   Piloted & mentored in tech fellow (intern) program (Summer 2014)

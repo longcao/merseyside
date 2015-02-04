@@ -29,7 +29,7 @@ Skills
 Work Experience
 ---------------
 
-*   **Software Engineer**, Pellucid Analytics, _New York, NY_ (Sept 2014 - Feb 2015)
+*   **Software Engineer**, Pellucid Analytics, _New York, NY_ (Oct 2014 - Feb 2015)
 
     -   Backend developer for visualization team, created charts and graphs in Scala
 

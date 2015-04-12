@@ -1,8 +1,0 @@
-@(post: Post)
-<div id="postTitle" data-post-slug="@post.slug">
-  <h1>@post.title</h1>
-</div>
-<p><i>@post.createDateFormatted</i></p>
-<div>
-  @Html(post.html)
-</div>

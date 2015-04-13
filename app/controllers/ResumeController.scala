@@ -10,7 +10,7 @@ import play.twirl.api.Html
 
 object ResumeController extends Controller {
 
-  lazy val resumeFile: java.io.File = Play.getFile("public/resume/resume.md")
+  lazy val resumeFile: java.io.File = Play.getFile("_resume/resume.md")
   lazy val processor: Markdown4jProcessor = new Markdown4jProcessor()
   lazy val md: String = processor.process(resumeFile)
 

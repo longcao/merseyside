@@ -9,3 +9,5 @@ scalaVersion := "2.11.6"
 mappings in Universal ++= (baseDirectory.value / "_resume" * "*" get) map
   (x => x -> ("_resume/" + x.getName))
 
+mappings in Universal ++= (baseDirectory.value / "_posts" * "*" get) map
+  (x => x -> ("_posts/" + x.getName))

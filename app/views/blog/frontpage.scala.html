@@ -1,2 +1,13 @@
+@(posts: List[Post])
+
 <ul class="frontpage">
+@for(post <- posts) {
+  <li>
+    <h2>
+      <a href="#">
+        @post.title
+      </a>
+    </h2>
+  </li>
+}
 </ul>

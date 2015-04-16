@@ -4,14 +4,14 @@ import java.io.File
 
 import org.markdown4j.Markdown4jProcessor
 
+import model.Post
+
 import play.api._
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.mvc._
 import play.api.Play.current
 
 import scala.concurrent.Future
-
-case class Post(title: String, content: String)
 
 object BlogController extends Controller {
 

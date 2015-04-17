@@ -20,13 +20,18 @@ object BlogController extends Controller {
   }
 
   def permalink(year: Int, month: Int, day: Int, title: String) = Action.async { request =>
-    val post = Post(
-      title = "Placeholder",
-      permalink = "/2014/05/12/placeholder-title",
-      content = "content")
+    PostService.posts.get(request.path) match {
+      case Some(post) =>
+        val perma = views.html.blog.permalink(post)
+        Future.successful {
+          Ok(views.html.master(perma))
+        }
+      case _ =>
+        Future.successful {
+          NotFound(views.html.master(views.html.notfound()))
+        }
+    }
 
-    val perma = views.html.blog.permalink(post)
-    Future.successful(Ok(views.html.master(perma)))
   }
 
 }

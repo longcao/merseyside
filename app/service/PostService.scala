@@ -16,8 +16,13 @@ object PostService {
 
   case class ParsedFileName(year: Int, month: Int, day: Int, slug: String)
 
-  private def createPermalink(parsed: ParsedFileName): String =
-    s"/${parsed.year}/${parsed.month}/${parsed.day}/${parsed.slug}"
+  private def createPermalink(parsed: ParsedFileName): String = {
+    def leadingZero(i: Int): String = "%02d".format(i)
+    val leadingMonth = leadingZero(parsed.month)
+    val leadingDay = leadingZero(parsed.day)
+
+    s"/${parsed.year}/${leadingMonth}/${leadingDay}/${parsed.slug}"
+  }
 
   val posts: Map[String, Post] = Play.getFile("_posts")
     .listFiles

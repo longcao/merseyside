@@ -22,6 +22,7 @@ object BlogController extends Controller {
     val posts = files.toList.map { f =>
       Post(
         title = "Placeholder",
+        permalink = "/2014/05/12/placeholder-title",
         content = processor.process(f))
     }
     val frontpage = views.html.blog.frontpage(posts)
@@ -29,7 +30,11 @@ object BlogController extends Controller {
   }
 
   def permalink(year: Int, month: Int, day: Int, title: String) = Action.async { request =>
-    val post = Post("Placeholder", "content")
+    val post = Post(
+      title = "Placeholder",
+      permalink = "/2014/05/12/placeholder-title",
+      content = "content")
+
     val perma = views.html.blog.permalink(post)
     Future.successful(Ok(views.html.master(perma)))
   }

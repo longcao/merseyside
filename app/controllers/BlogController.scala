@@ -28,4 +28,10 @@ object BlogController extends Controller {
     Future.successful(Ok(views.html.master(frontpage)))
   }
 
+  def permalink(year: Int, month: Int, day: Int, title: String) = Action.async { request =>
+    val post = Post("Placeholder", "content")
+    val perma = views.html.blog.permalink(post)
+    Future.successful(Ok(views.html.master(perma)))
+  }
+
 }

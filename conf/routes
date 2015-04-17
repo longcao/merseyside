@@ -3,13 +3,14 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.BlogController.frontpage
-GET     /about                      controllers.Application.about
+GET     /                                                           controllers.BlogController.frontpage
+GET     /about                                                      controllers.Application.about
 
-GET     /resume                     controllers.ResumeController.resume
+GET     /resume                                                     controllers.ResumeController.resume
 
 # Blog
-GET     /blog                       controllers.BlogController.frontpage
+GET     /blog                                                       controllers.BlogController.frontpage
+GET     /$year<[0-9]+>/$month<[0-9]+>/$day<[0-9]+>/:title           controllers.BlogController.permalink(year: Int, month: Int, day: Int, title: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

@@ -1,9 +1,5 @@
 package controllers
 
-import java.io.File
-
-import org.markdown4j.Markdown4jProcessor
-
 import model.Post
 
 import play.api._
@@ -13,19 +9,12 @@ import play.api.Play.current
 
 import scala.concurrent.Future
 
+import service.PostService
+
 object BlogController extends Controller {
 
-  val processor: Markdown4jProcessor = new Markdown4jProcessor()
-
   def frontpage = Action.async { request =>
-    val files: Array[File] = Play.getFile("_posts").listFiles()
-    val posts = files.toList.map { f =>
-      Post(
-        title = "Placeholder",
-        permalink = "/2014/05/12/placeholder-title",
-        content = processor.process(f))
-    }
-    val frontpage = views.html.blog.frontpage(posts)
+    val frontpage = views.html.blog.frontpage(PostService.posts)
     Future.successful(Ok(views.html.master(frontpage)))
   }
 

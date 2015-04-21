@@ -19,18 +19,15 @@ object Yaml {
     case b: java.lang.Boolean => b
     case d: Date => new DateTime(d)
     case null => null
-    case other => {
-      Logger.warn("Unexpected YAML object of type " + other.getClass)
-      other.toString
-    }
+    case e => throw new Exception(s"unable to parse object ${e.getClass}")
   }
 
   def parseFrontMatter(s: String): Yaml = {
     val yaml = new org.yaml.snakeyaml.Yaml().load(s)
     parseYaml(yaml) match {
       case y: Yaml => y
-      case other =>
-        Logger.warn("YAML didn't parse nicely: " + other)
+      case e =>
+        Logger.warn("YAML didn't parse nicely: " + e)
         Yaml.empty
     }
   }

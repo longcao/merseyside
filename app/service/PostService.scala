@@ -18,6 +18,10 @@ object PostService {
 
   case class ParsedFileName(year: Int, month: Int, day: Int, slug: String)
 
+  /**
+   * Constructs a permalink path given the parsed filename,
+   * in the form of: /YYYY/MM/DD/slug
+   */
   private def createPermalink(parsed: ParsedFileName): String = {
     def leadingZero(i: Int): String = "%02d".format(i)
     val leadingMonth = leadingZero(parsed.month)
@@ -26,6 +30,9 @@ object PostService {
     s"/${parsed.year}/${leadingMonth}/${leadingDay}/${parsed.slug}"
   }
 
+  /**
+   * Separate the front matter string from the rest of the post.
+   */
   private def separateFrontMatter(file: File): (String, String) = {
     val lines = Source.fromFile(file)
       .getLines

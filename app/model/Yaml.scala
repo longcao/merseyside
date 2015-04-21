@@ -7,6 +7,7 @@ import org.joda.time.DateTime
 import play.api.Logger
 
 import scala.collection.JavaConverters._
+import scala.reflect.ClassTag
 
 object Yaml {
   def empty = Yaml(Map.empty)
@@ -33,4 +34,15 @@ object Yaml {
   }
 }
 
-case class Yaml(map: Map[String, AnyRef])
+case class Yaml(map: Map[String, AnyRef]) {
+  def get[T: ClassTag](key: String): Option[T] = {
+    val ct = implicitly[ClassTag[T]]
+
+    map.get(key).flatMap {
+      case t if ct.runtimeClass.isInstance(t) => Some(t.asInstanceOf[T])
+      case other =>
+        Logger.warn("Ignoring value for key " + key + ", expected " + ct + " but was " + other)
+        None
+    }
+  }
+}

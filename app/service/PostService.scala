@@ -48,22 +48,23 @@ object PostService {
     .flatMap { file =>
       file.getName match {
         case postFileRegex(year, month, day, slug, extension) =>
-          Some((ParsedFileName(year.toInt, month.toInt, day.toInt, slug), file))
+          val parsed = ParsedFileName(year.toInt, month.toInt, day.toInt, slug)
+
+          // YAML
+          val (frontMatter, rest) = separateFrontMatter(file)
+          val yaml = Yaml.parseFrontMatter(frontMatter)
+
+          // Post properties
+          val title = yaml.get[String]("title")
+          val permalink = createPermalink(parsed)
+
+          val post = Post(
+            title = title.getOrElse("Placeholder title"),
+            permalink = permalink,
+            content = processor.process(rest))
+
+          Some(permalink -> post)
         case _ => None
       }
-    }.map { case (parsed, file) =>
-      val permalink = createPermalink(parsed)
-
-      val (frontMatter, rest) = separateFrontMatter(file)
-      val yaml = Yaml.parseFrontMatter(frontMatter)
-
-      val title = yaml.get[String]("title")
-
-      val post = Post(
-        title = title.getOrElse("Placeholder title"),
-        permalink = permalink,
-        content = processor.process(rest))
-
-      permalink -> post
     }.toMap
 }

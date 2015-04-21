@@ -57,9 +57,10 @@ object PostService {
       val (frontMatter, rest) = separateFrontMatter(file)
       val yaml = Yaml.parseFrontMatter(frontMatter)
 
-      // TODO: parse post front matter here
+      val title = yaml.get[String]("title")
+
       val post = Post(
-        title = "Placeholder",
+        title = title.getOrElse("Placeholder title"),
         permalink = permalink,
         content = processor.process(rest))
 

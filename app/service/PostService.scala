@@ -2,12 +2,14 @@ package service
 
 import java.io.File
 
-import model.Post
+import model.{ Post, Yaml }
 
 import org.markdown4j.Markdown4jProcessor
 
 import play.api.Play
 import play.api.Play.current
+
+import scala.io.Source
 
 object PostService {
   private val processor: Markdown4jProcessor = new Markdown4jProcessor()
@@ -24,6 +26,23 @@ object PostService {
     s"/${parsed.year}/${leadingMonth}/${leadingDay}/${parsed.slug}"
   }
 
+  private def separateFrontMatter(file: File): (String, String) = {
+    val lines = Source.fromFile(file)
+      .getLines
+      .map(_.trim)
+      .dropWhile(_.isEmpty)
+
+    val first = if (lines.hasNext) lines.next else ""
+
+    first match {
+      case "---" =>
+        val frontMatter = lines.takeWhile(_ != "---").mkString("\n")
+        val rest = lines.mkString("\n")
+        (frontMatter, rest)
+      case _ => ("", lines.mkString("\n"))
+    }
+  }
+
   val posts: Map[String, Post] = Play.getFile("_posts")
     .listFiles
     .flatMap { file =>
@@ -34,10 +53,15 @@ object PostService {
       }
     }.map { case (parsed, file) =>
       val permalink = createPermalink(parsed)
+
+      val (frontMatter, rest) = separateFrontMatter(file)
+      val yaml = Yaml.parseFrontMatter(frontMatter)
+
+      // TODO: parse post front matter here
       val post = Post(
         title = "Placeholder",
         permalink = permalink,
-        content = processor.process(file))
+        content = processor.process(rest))
 
       permalink -> post
     }.toMap

@@ -14,7 +14,7 @@ import service.PostService
 object BlogController extends Controller {
 
   def frontpage = Action.async { request =>
-    val posts = PostService.posts.values.toList
+    val posts = PostService.posts.values.toList.sorted(Post.postOrdering)
     val frontpage = views.html.blog.frontpage(posts)
     Future.successful(Ok(views.html.master(frontpage)))
   }

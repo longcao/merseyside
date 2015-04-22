@@ -5,11 +5,12 @@
 <ul class="frontpage">
 @for(post <- posts) {
   <li>
-    <h2>
+    <span>@post.date</span>
+    <h5>
       <a href="@post.permalink">
         @post.title
       </a>
-    </h2>
+    </h5>
   </li>
 }
 </ul>

@@ -4,6 +4,8 @@ import java.io.File
 
 import model.{ Post, Yaml }
 
+import org.joda.time.LocalDate
+
 import org.markdown4j.Markdown4jProcessor
 
 import play.api.Play
@@ -16,18 +18,25 @@ object PostService {
 
   val postFileRegex = "^(\\d{4})-(\\d{2})-(\\d{2})-(.*)(\\.[^.]+)$".r
 
-  case class ParsedFileName(year: Int, month: Int, day: Int, slug: String)
+  case class ParsedFileName(year: Int, month: Int, day: Int, slug: String) {
+    private def leadingZero(i: Int): String = "%02d".format(i)
+
+    val leadingMonth = leadingZero(month)
+    val leadingDay = leadingZero(day)
+  }
 
   /**
    * Constructs a permalink path given the parsed filename,
    * in the form of: /YYYY/MM/DD/slug
    */
-  private def createPermalink(parsed: ParsedFileName): String = {
-    def leadingZero(i: Int): String = "%02d".format(i)
-    val leadingMonth = leadingZero(parsed.month)
-    val leadingDay = leadingZero(parsed.day)
+  private def parsePermalink(parsed: ParsedFileName): String = {
+    s"/${parsed.year}/${parsed.leadingMonth}/${parsed.leadingDay}/${parsed.slug}"
+  }
 
-    s"/${parsed.year}/${leadingMonth}/${leadingDay}/${parsed.slug}"
+  private def parseDate(parsed: ParsedFileName): LocalDate = {
+    val dateString = s"${parsed.year}-${parsed.leadingMonth}-${parsed.leadingDay}"
+
+    LocalDate.parse(dateString)
   }
 
   /**
@@ -63,10 +72,12 @@ object PostService {
 
           // Post properties
           val title = yaml.get[String]("title")
-          val permalink = createPermalink(parsed)
+          val date = parseDate(parsed)
+          val permalink = parsePermalink(parsed)
 
           val post = Post(
             title = title.getOrElse("Placeholder title"),
+            date = date,
             permalink = permalink,
             content = processor.process(rest))
 

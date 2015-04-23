@@ -9,7 +9,7 @@ object Post {
 }
 
 case class Post(
-  title: String,
+  title: Option[String],
   date: LocalDate,
   permalink: String,
   content: String)

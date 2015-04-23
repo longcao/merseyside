@@ -24,7 +24,7 @@ object BlogController extends Controller {
       case Some(post) =>
         val perma = views.html.blog.permalink(post)
         Future.successful {
-          Ok(views.html.master(perma))
+          Ok(views.html.master(perma, post.title))
         }
       case _ =>
         Future.successful {

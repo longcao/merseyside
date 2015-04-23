@@ -1,7 +1,7 @@
-@(content: Html)
+@(content: Html, title: Option[String] = None)
 
 <!DOCTYPE html>
-  @head()
+  @head(title.getOrElse("longcao.org"))
   <body>
     <div class="container">
       <div class="row">

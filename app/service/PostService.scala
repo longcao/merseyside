@@ -76,7 +76,7 @@ object PostService {
           val permalink = parsePermalink(parsed)
 
           val post = Post(
-            title = title.getOrElse("Placeholder title"),
+            title = title,
             date = date,
             permalink = permalink,
             content = processor.process(rest))

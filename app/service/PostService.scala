@@ -87,4 +87,7 @@ object PostService {
         case _ => None
       }
     }.toMap
+
+  val allPosts: Seq[Post] = posts.values.toSeq
+
 }

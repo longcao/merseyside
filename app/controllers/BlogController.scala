@@ -26,12 +26,12 @@ object BlogController extends Controller {
         Future.successful {
           Ok(views.html.master(perma, post.title))
         }
-      case _ =>
-        Future.successful {
-          NotFound(views.html.master(views.html.notfound()))
-        }
+      case _ => notFound
     }
+  }
 
+  private def notFound: Future[Result] = Future.successful {
+    NotFound(views.html.master(views.html.notfound()))
   }
 
 }

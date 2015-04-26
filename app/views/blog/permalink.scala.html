@@ -2,10 +2,15 @@
 
 @(post: Post)
 
+@tagLink(tag: String) = {
+  <i><a href="/tag/@tag">@tag</a></i>
+}
+
 <div>
   <h1>@post.title</h1>
-  <p>@post.date</p>
-  <p><i>tags: @post.tags.mkString(", ")</i></p>
+  <p>
+    @post.date &nbsp; | &nbsp; tags: <i>@Html(post.tags.map(tagLink(_)).mkString(", "))</i>
+  </p>
 </div>
 <div>
   @Html(post.content)

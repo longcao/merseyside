@@ -90,4 +90,7 @@ object PostService {
 
   val allPosts: Seq[Post] = posts.values.toSeq
 
+  def loadByTag(tag: String): Seq[Post] = {
+    allPosts.filter(_.tags.contains(tag))
+  }
 }

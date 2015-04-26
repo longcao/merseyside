@@ -19,6 +19,15 @@ object BlogController extends Controller {
     Future.successful(Ok(views.html.master(frontpage)))
   }
 
+  def postsByTag(tag: String) = Action.async { request =>
+    PostService.loadByTag(tag).toList match {
+      case Nil => notFound
+      case posts =>
+        val tagPage = views.html.blog.frontpage(posts)
+        Future.successful(Ok(views.html.master(tagPage)))
+    }
+  }
+
   def permalink(year: Int, month: Int, day: Int, title: String) = Action.async { request =>
     PostService.posts.get(request.path) match {
       case Some(post) =>

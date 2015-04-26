@@ -10,6 +10,7 @@ GET     /resume                                                     controllers.
 
 # Blog
 GET     /blog                                                       controllers.BlogController.frontpage
+GET     /tag/:tag                                                   controllers.BlogController.postsByTag(tag: String)
 GET     /$year<[0-9]+>/$month<[0-9]+>/$day<[0-9]+>/:title           controllers.BlogController.permalink(year: Int, month: Int, day: Int, title: String)
 
 # Map static resources from the /public folder to the /assets URL path

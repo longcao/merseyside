@@ -5,6 +5,7 @@
 <div>
   <h1>@post.title</h1>
   <p>@post.date</p>
+  <p>tags: @post.tags.mkString(", ")</p>
 </div>
 <div>
   @Html(post.content)

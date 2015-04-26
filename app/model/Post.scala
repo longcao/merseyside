@@ -12,4 +12,5 @@ case class Post(
   title: Option[String],
   date: LocalDate,
   permalink: String,
+  tags: Seq[String],
   content: String)

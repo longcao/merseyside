@@ -74,11 +74,13 @@ object PostService {
           val title = yaml.get[String]("title")
           val date = parseDate(parsed)
           val permalink = parsePermalink(parsed)
+          val tags = yaml.get[Seq[String]]("tags").getOrElse(Seq.empty)
 
           val post = Post(
             title = title,
             date = date,
             permalink = permalink,
+            tags = tags,
             content = processor.process(rest))
 
           Some(permalink -> post)

@@ -63,7 +63,8 @@ ul.frontpage li {
 }
 
 /* -- Links -- */
-a, a:visited { color: #333; text-decoration: underline; outline: 0; }
+a { color: #333; text-decoration: underline; outline: 0; }
+a:visited { color: #919191; text-decoration: underline; outline: 0; }
 a:hover, a:focus { color: #3C5693; }
 p a, p a:visited { line-height: inherit; }
 

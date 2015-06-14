@@ -45,7 +45,6 @@ object PostService {
   private def separateFrontMatter(file: File): (String, String) = {
     val lines = Source.fromFile(file)
       .getLines
-      .map(_.trim)
       .dropWhile(_.isEmpty)
 
     val first = if (lines.hasNext) lines.next else ""

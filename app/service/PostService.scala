@@ -43,7 +43,7 @@ object PostService {
    * Separate the front matter string from the rest of the post.
    */
   private def separateFrontMatter(file: File): (String, String) = {
-    val lines = Source.fromFile(file)
+    val lines = Source.fromFile(file, "UTF-8")
       .getLines
       .dropWhile(_.isEmpty)
 

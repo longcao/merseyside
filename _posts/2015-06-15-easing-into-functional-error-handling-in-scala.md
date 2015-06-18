@@ -137,7 +137,7 @@ object CoffeeServiceTry {
 
 There are some minor problems with `Option` and `Try`, however: `Option` doesn't necessarily provide you enough context as to _why_ a computation failed and `Try`'s failure mechanism still relies on exceptions, which we've assumed to disavow. Enter [Either](http://www.scala-lang.org/api/current/index.html#scala.util.Either), which represents the disjoint union of two types (either type A or type B) and may be more useful for us to provide context for failure without an exception: one type can represent a success result and the other can represent a failure or error. 
 
-An important detail to note is that `Either` does not have the `map` and `flatMap` methods nor is biased towards a side. `Left` is adopted by _convention_ to hold an error while `Right` is assumed as the value itself. Instead, we can force a right-bias by calling the `.right` projection on these `Either`s, but that probably violates your DRYness sensibilities, no? We can improve yet further with alternatives from outside the standard library.
+An important detail to note is that `Either` itself does not have the `map` and `flatMap` methods nor is biased towards a side. `Left` is adopted by _convention_ to hold an error while `Right` is assumed as the value itself. Instead, to get `flatMap` capabilities we have to use `Either`'s projections to force a right-bias by calling the `.right` projection on these `Either`s, but that probably violates your DRYness sensibilities, no? We can improve yet further with alternatives from outside the standard library.
 
 ```scala
 import scala.util.{ Either, Left, Right }
@@ -304,7 +304,7 @@ As with many engineering decisions, there are tradeoffs in choosing one way or a
 
 ## What about accumulating errors?
 
-As mentioned before, all these error handling types _fail fast_, so there's no room for accumulating errors along a group of functions. In a future post we'll go over mechanisms for accumulating errors, some of which will look familar, and some look _very_ different from what someone coming from Java has ever seen.
+As mentioned before, all these error handling types _fail fast_, so there's no room for accumulating errors along a group of functions. In a future post we'll go over mechanisms for accumulating errors, some of which will look familiar, and some look _very_ different from what someone coming from Java has ever seen.
 
 ## Further Reading
 

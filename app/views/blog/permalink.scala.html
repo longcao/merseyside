@@ -3,7 +3,7 @@
 @(post: Post)
 
 @tagLink(tag: String) = {
-  <i><a href="/tag/@tag">@tag</a></i>
+  <i><a href="/tag/@tag">@tag.replaceAll("-", " ")</a></i>
 }
 
 <div>

@@ -10,9 +10,10 @@ import service.PostService
 
 object BlogController extends Controller {
 
+  lazy val sortedPosts = PostService.allPosts.toList.sorted(Post.postOrdering)
+
   def frontpage = Action { request =>
-    val posts = PostService.allPosts.toList.sorted(Post.postOrdering)
-    val frontpage = views.html.blog.frontpage(posts)
+    val frontpage = views.html.blog.frontpage(sortedPosts)
 
     Ok(views.html.master(frontpage))
   }

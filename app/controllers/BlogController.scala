@@ -36,6 +36,14 @@ object BlogController extends Controller {
     }
   }
 
+  def rss = Action { request =>
+    Ok(views.xml.blog.feeds.rss(sortedPosts))
+  }
+
+  def atom = Action { request =>
+    Ok(views.xml.blog.feeds.atom(sortedPosts))
+  }
+
   private def notFound: Result =
     NotFound(views.html.master(views.html.notfound()))
 }

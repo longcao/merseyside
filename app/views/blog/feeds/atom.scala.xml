@@ -1,0 +1,31 @@
+@import model.Post
+
+@(posts: List[Post])
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>http://longcao.org/blog</id>
+  <title>longcao.org</title>
+  <link href="http://longcao.org/blog/atom.xml" rel="self" />
+  <link href="http://longcao.org"/>
+  <updated>@posts.headOption.map(_.formattedDateRFC3339).getOrElse("")</updated>
+  <author>
+    <name>Long Cao</name>
+    <email>longcao@@gmail.com</email>
+  </author>
+  @for(post <- posts) {
+    <entry>
+      <id>@post.fullPermalink</id>
+      <title>@post.title.getOrElse("")</title>
+      <updated>@post.formattedDateRFC3339</updated>
+      <author>
+        <name>Long Cao</name>
+        <email>longcao@@gmail.com</email>
+      </author>
+      <link href="@post.fullPermalink"/>
+      <summary>SUMMARY PLACEHOLDER</summary>
+      <content type="html">@post.content</content>
+    </entry>
+  }
+</feed>
+

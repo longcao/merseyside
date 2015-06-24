@@ -1,0 +1,28 @@
+@import model.Post
+
+@(posts: List[Post])
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <atom:link href="http://longcao.org/blog/rss.xml" rel="self" type="application/rss+xml" />
+    <title>longcao.org</title>
+    <link>http://longcao.org</link>
+    <description>Long Cao's Personal Blog</description>
+    <language>en</language>
+    @for(post <- posts) {
+      <item>
+        <title>@post.title.getOrElse("")</title>
+        <link>@post.fullPermalink</link>
+        <description>placeholder</description>
+        <content:encoded><![CDATA[@Xml(post.content)]]></content:encoded>
+        <author>longcao@@gmail.com (Long Cao)</author>
+        @for(tag <- post.tags) {
+          <category>@tag.replaceAll("-", " ")</category>
+        }
+        <guid isPermaLink="true">@post.fullPermalink</guid>
+        <pubDate>@post.formattedDateRFC822</pubDate>
+      </item>
+    }
+  </channel>
+</rss>

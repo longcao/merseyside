@@ -23,7 +23,7 @@
         <email>longcao@@gmail.com</email>
       </author>
       <link href="@post.fullPermalink"/>
-      <summary>SUMMARY PLACEHOLDER</summary>
+      <summary>@post.description.getOrElse("")</summary>
       <content type="html">@post.content</content>
     </entry>
   }

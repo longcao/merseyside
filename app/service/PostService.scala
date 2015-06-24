@@ -76,12 +76,14 @@ object PostService {
           val tags = yaml.get[Seq[String]]("tags")
             .getOrElse(Seq.empty)
             .map(_.replaceAll("\\s+", "-"))
+          val description = yaml.get[String]("description")
 
           val post = Post(
             title = title,
             date = date,
             permalink = permalink,
             tags = tags,
+            description = description,
             content = processor.process(rest))
 
           Some(permalink -> post)

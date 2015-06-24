@@ -1,6 +1,7 @@
 ---
 title: "Easing Into Functional Error Handling in Scala"
 tags: ["scala", "functional programming", "error handling"]
+description: "A gentle introduction into the world of functional error handling in Scala."
 ---
 
 One of the biggest selling points of Scala is being able to transition from Java to the world of functional programming. What this means, practically speaking, is that you and/or your team can start off writing very Java-like Scala that already works, treating it as a "better Java" with more goodies and less verbose syntax. But why stop at that? We can do better by adopting more typesafe functional concepts, and the best part is we can ease ourselves into at least one practical application without drowning: functional error handling.

@@ -1,6 +1,7 @@
 ---
 title: "So You Decided To Start A Blog"
 tags: ["meta", "blogging", "side projects"]
+description: "What is this side project?"
 ---
 
 I started this project almost a year ago as a busman's holiday in [a previous life](http://tech.kinja.com/). What could be better than working on blogs for your day job than to come home and work some more on your own blog?

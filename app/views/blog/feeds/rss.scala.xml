@@ -14,7 +14,7 @@
       <item>
         <title>@post.title.getOrElse("")</title>
         <link>@post.fullPermalink</link>
-        <description>placeholder</description>
+        <description>@post.description.getOrElse("")</description>
         <content:encoded><![CDATA[@Xml(post.content)]]></content:encoded>
         <author>longcao@@gmail.com (Long Cao)</author>
         @for(tag <- post.tags) {

@@ -16,6 +16,7 @@ case class Post(
   date: LocalDate,
   permalink: String,
   tags: Seq[String],
+  description: Option[String],
   content: String) {
 
   // default to noon UTC since no timestamp on posts

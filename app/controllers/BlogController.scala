@@ -36,11 +36,20 @@ object BlogController extends Controller {
     }
   }
 
-  def rss = Action { request =>
+  def redirectFeed = Action { request =>
+    if (request.path == "/rss.xml")
+      Redirect(routes.BlogController.rss)
+    else if (request.path == "/atom.xml")
+      Redirect(routes.BlogController.atom)
+    else
+      notFound
+  }
+
+  def rss = Action {
     Ok(views.xml.blog.feeds.rss(sortedPosts))
   }
 
-  def atom = Action { request =>
+  def atom = Action {
     Ok(views.xml.blog.feeds.atom(sortedPosts))
   }
 

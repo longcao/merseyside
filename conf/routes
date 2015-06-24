@@ -12,6 +12,8 @@ GET     /resume                                                     controllers.
 GET     /blog                                                       controllers.BlogController.frontpage
 GET     /tag/:tag                                                   controllers.BlogController.postsByTag(tag: String)
 GET     /$year<[0-9]+>/$month<[0-9]+>/$day<[0-9]+>/:title           controllers.BlogController.permalink(year: Int, month: Int, day: Int, title: String)
+GET     /rss.xml                                                    controllers.BlogController.redirectFeed
+GET     /atom.xml                                                   controllers.BlogController.redirectFeed
 GET     /blog/rss.xml                                               controllers.BlogController.rss
 GET     /blog/atom.xml                                              controllers.BlogController.atom
 

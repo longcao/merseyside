@@ -11,23 +11,33 @@ Long Cao
 Summary
 ---------
 
-*   Software engineer with background in backend development and interest in big data and API driven services
+*   Software engineer with background in backend development and interest in API driven services, big data, and immutable server architecture
 
 Skills
 ------
 
 *   Experienced with:
 
-    - Scala, Play Framework, Akka, sbt, Slick, specs2, MySQL, PHP, Java, Protocol Buffers,
-      JSON, vim, git, agile development, GitHub, Jenkins,
-      continuous integration and deployment, functional programming
+    - Scala, Play Framework, Akka, sbt, Slick, specs2, ScalaTest, MySQL, PHP, Java, Protocol Buffers
+    - Docker, vim, git, agile development, GitHub, Jenkins, command line/Unix tools
+    - continuous integration and deployment, functional programming, RESTful API design and implementation
+    - CMSes, internet media, blogging platforms
 
 *   Familiar with:
 
-    - service-oriented architecture, microservices, Redis, CSS, HTML, JavaScript, jQuery, command line/unix tools, Hadoop
+    - Redis, CSS, HTML, JavaScript, jQuery, AWS, Hadoop, Kubernetes
+    - service-oriented architecture, microservices, content delivery networks
 
 Work Experience
 ---------------
+
+*   **Senior Software Engineer**, MediaMath, _New York, NY_ (Mar 2015 - Present)
+
+    -   Backend developer for creative video ad team/Scala services
+    -   Mentored interns as a part of the creatives team
+    -   Gave internal and external tech talks
+    -   Built out build pipeline for creative video services with Jenkins and Docker
+    -   Piloted integrating Docker, Kubernetes into devops cycle
 
 *   **Software Engineer**, Pellucid Analytics, _New York, NY_ (Oct 2014 - Feb 2015)
 
@@ -37,7 +47,7 @@ Work Experience
 
     -   Backend API development with Scala/Play Framework for Kinja, Gawker's CMS/blog network
     -   Piloted & mentored in tech fellow (intern) program (Summer 2014)
-    -   Lead backend testing, API design and documentation efforts
+    -   Led backend testing, API design and documentation efforts
     -   Worked on transitioning the Kinja platform from a monolith to services
     -   Worked in a continuous integration/deployment environment
     -   Actively and routinely involved in highly opinionated product cycle

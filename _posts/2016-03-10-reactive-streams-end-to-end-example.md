@@ -6,7 +6,7 @@ description: "A walkthrough of streaming data from PostgreSQL to Elasticsearch w
 
 _Code for this blog post can be found on GitHub at: [https://github.com/longcao/reactive-streams-end-to-end-example](https://github.com/longcao/reactive-streams-end-to-end-example)._
 
-_This post is also cross-posted to my company's engineering blog at: [https://www.reonomy.com/reactive-streams-end-to-end-with-slick-akka-streams-and-elastic4s/](https://www.reonomy.com/reactive-streams-end-to-end-with-slick-akka-streams-and-elastic4s/).
+_This post is also cross-posted to my company's engineering blog at: [https://www.reonomy.com/reactive-streams-end-to-end-with-slick-akka-streams-and-elastic4s/](https://www.reonomy.com/reactive-streams-end-to-end-with-slick-akka-streams-and-elastic4s/)._
 
 ## Introduction: Reactive Streams
 

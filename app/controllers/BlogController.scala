@@ -8,7 +8,7 @@ import play.api.Play.current
 
 import service.PostService
 
-object BlogController extends Controller {
+class BlogController extends Controller {
 
   lazy val sortedPosts = PostService.allPosts.toList.sorted(Post.postOrdering)
 

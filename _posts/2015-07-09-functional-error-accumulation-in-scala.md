@@ -96,14 +96,12 @@ For some, the previous example may already do most of the job: we're using the S
 
 ### cats.data.Validated
 
-In the following example using [cats.data.Validated](http://non.github.io/cats/api/#cats.data.Validated), we are doing the same validation logic except we return `ValidatedNel[RoastProblem, A]` instances, which is a type alias for `Validated[NonEmptyList[RoastProblem], A]` - it collects errors in a list that cannot be empty, thus if you have an `Invalid` you know you have at least one error.
+In the following example using [cats.data.Validated](http://typelevel.org/cats/api/#cats.data.Validated), we are doing the same validation logic except we return `ValidatedNel[RoastProblem, A]` instances, which is a type alias for `Validated[NonEmptyList[RoastProblem], A]` - it collects errors in a list that cannot be empty, thus if you have an `Invalid` you know you have at least one error.
 
 ```scala
 import cats.data.Validated.{ invalidNel, valid }
 import cats.data.{ NonEmptyList, ValidatedNel }
-import cats.std.list._
-import cats.syntax.apply._
-import cats.SemigroupK
+import cats.implicits._
 
 import org.joda.time.LocalDate
 
@@ -127,8 +125,6 @@ case class ApprovedRoast(level: RoastLevel, date: LocalDate, isEven: Boolean) ex
 case class RoastProblem(reason: String)
 
 object RoastEvaluationValidated {
-  implicit val sg = SemigroupK[NonEmptyList].algebra[RoastProblem]
-
   def evaluateRoastLevel(roastLevel: RoastLevel): ValidatedNel[RoastProblem, RoastLevel] = {
     if (roastLevel.value > 2)
       valid(roastLevel)
@@ -165,8 +161,7 @@ This example is conceptually quite a bit more complex, there's a few pieces to u
 The example code is made possible through a combination of things, and at risk of handwaving a bit too much I'll mention them anyways:
 
 - `Validated` is an _applicative functor_ [2], which has properties that allow you to independently run these validations yet still combine the returned results for either accumulated errors or a nice return type.
-- The implicit resolution from importing `cats.std.list._` and `cats.syntax.apply._`, which gives you the `|@|` syntax for applicative building.
-- The implicit semigroup val defines the ability to add together `NonEmptyList`s so we can roll up errors.
+- The implicits in `cats.implicits._` enables you the `|@|` syntax for applicative building.
 
 ### A similar option: scalaz.Validation
 
@@ -304,7 +299,7 @@ Hopefully I haven't tired out the coffee analogy too much for you. Until next ti
 
 ## Further Reading
 
-As always, a few other people have written about the same topic. [Diversify your bonds](https://www.youtube.com/watch?v=VsEpjTcWkyw&t=60) and check them out as well:
+As always, a few other people have written about the same topic, check them out as well!
 
 - [herding cats - Validated datatype](http://eed3si9n.com/herding-cats/Validated.html) by Eugene Yokota
 - [An Introduction to Cats](http://underscore.io/blog/posts/2015/06/10/an-introduction-to-cats.html) by Noel Welsh
